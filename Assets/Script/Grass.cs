@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class Grass : MonoBehaviour,ITouchable
 {
@@ -11,13 +12,17 @@ public class Grass : MonoBehaviour,ITouchable
     [SerializeField] GameObject grassPrefab;
     private int _grassLevel;
     private bool _isActive = true;
+    public DateTime UpdateAt { get; private set; }
     public bool IsActive
     {
         get => _isActive;
         set
         {
             _isActive = value;
+            _grassLevel = 0;
+
             childGrass.gameObject.SetActive(value);
+            if(value)UpdateAt = DateTime.Now;
         }
     }
     public int grassLevel
@@ -57,6 +62,7 @@ public class Grass : MonoBehaviour,ITouchable
     void Start()
     {
         SetGrassActive(0);
+        UpdateAt = DateTime.Now;
         GameManager.instance.GrassPoint++;
         childGrass.eulerAngles = 
             new Vector3(0, UnityEngine.Random.Range(0, 360), 0);
@@ -100,6 +106,7 @@ public class Grass : MonoBehaviour,ITouchable
                 }
             }
         }
+        UpdateAt = DateTime.Now;
     }
     public void Kill()
     {
