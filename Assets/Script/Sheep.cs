@@ -30,6 +30,7 @@ public class Sheep : MonoBehaviour, ITouchable
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.instance.IsPlaying) return;
         if(target == null || !target.IsActive)SetNewTarget();
         rigidbody.MovePosition(
             Vector3.MoveTowards(

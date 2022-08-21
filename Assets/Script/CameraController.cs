@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!GameManager.instance.IsPlaying) return;
         if (Input.GetKey(KeyCode.A)) transform.position -= Vector3.right * cameraMoveSpeed;
         if (Input.GetKey(KeyCode.D)) transform.position += Vector3.right * cameraMoveSpeed;
         if (Input.GetKey(KeyCode.W)) transform.position += Vector3.forward * cameraMoveSpeed;

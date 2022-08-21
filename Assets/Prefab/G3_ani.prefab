@@ -1062,7 +1062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blade: {fileID: 4147579628203537781}
   bladeRotateSpeed: 0.2
-  moveSpeed: 0.01
+  moveSpeed: 0.02
   destroyExplosionPrefab: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3,
     type: 3}
   gravePrefab: {fileID: 8921136097400132280, guid: 9f3fd0ec753ed31408c9acb979b547e7,

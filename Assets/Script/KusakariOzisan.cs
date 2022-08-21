@@ -22,6 +22,7 @@ public class KusakariOzisan : MonoBehaviour,ITouchable
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.instance.IsPlaying) return;
         blade.Rotate(0, 0, bladeRotateSpeed);
         rigidbody.MovePosition(transform.position + transform.forward * moveSpeed);
     }
