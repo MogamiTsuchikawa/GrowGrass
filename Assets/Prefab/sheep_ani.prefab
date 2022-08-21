@@ -165,6 +165,8 @@ MonoBehaviour:
   moveSpeed: 0.02
   destroyExplosionPrefab: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3,
     type: 3}
+  bonePrefab: {fileID: 2025054938988773913, guid: 25209d87deec1f54f9718502b74ba640,
+    type: 3}
 --- !u!1 &310876861395104917
 GameObject:
   m_ObjectHideFlags: 0

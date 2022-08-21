@@ -8,6 +8,7 @@ public class Sheep : MonoBehaviour, ITouchable
     [SerializeField] float moveSpeed;
     private float currentMoveSpeed;
     [SerializeField] GameObject destroyExplosionPrefab;
+    [SerializeField] GameObject bonePrefab;
     private Rigidbody rigidbody;
     private int touchCount = 0;
     private Animator animator;
@@ -47,15 +48,24 @@ public class Sheep : MonoBehaviour, ITouchable
         touchCount++;
         if (touchCount == 5)
         {
-            var explo = Instantiate(destroyExplosionPrefab);
-            explo.transform.position = transform.position;
-            Destroy(gameObject);
+            Die();
         }
         else
         {
             animator.SetTrigger("OnTouch");
             SetNewTarget();
         }
+    }
+    public void Die()
+    {
+        var explo = Instantiate(destroyExplosionPrefab);
+        explo.transform.position = transform.position;
+        var bone = Instantiate(bonePrefab);
+        bone.transform.position = new Vector3(
+            transform.position.x,
+            0.31f,
+            transform.position.z);
+        Destroy(gameObject);
     }
     public void OnEat()
     {
