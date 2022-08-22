@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] int countTime = 180;
     [SerializeField] TextMeshProUGUI countTimeText;
     [SerializeField] Canvas mainCanvas;
+    [SerializeField] ResultPanel resultPanel;
+    private AudioSource audioSource;
     public int GrassPoint
     {
         get => _grassPoint;
@@ -38,12 +40,20 @@ public class GameManager : MonoBehaviour
             countTimeText.text = countTime.ToString();
         }
         GameStatus = Status.AfterPlay;
+        GameClear();
+    }
+    void GameClear()
+    {
+        GameStatus = Status.AfterPlay;
+        resultPanel.gameObject.SetActive(true);
+        resultPanel.StartResultView();
     }
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(CountDown());
         mainCanvas.gameObject.SetActive(true);
+        audioSource = GetComponent<AudioSource>();
         
     }
     private void Awake()
@@ -60,7 +70,10 @@ public class GameManager : MonoBehaviour
     void TouchFunction()
     {
         RaycastHit hit;
-        if (Application.isEditor || Application.platform == RuntimePlatform.WindowsPlayer)
+        if (Application.isEditor
+            || Application.platform == RuntimePlatform.WindowsPlayer
+            || Application.platform == RuntimePlatform.WebGLPlayer
+            || Application.platform == RuntimePlatform.OSXPlayer)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -83,10 +96,12 @@ public class GameManager : MonoBehaviour
         ITouchable touchable = obj.GetComponent<ITouchable>();
         if (touchable == null) return;
         touchable.OnTouch();
-        
+        if (touchable.IsGrass) return;
+        audioSource.Play();
     }
 }
 interface ITouchable
 {
     void OnTouch();
+    bool IsGrass { get; set; }
 }

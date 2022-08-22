@@ -14,6 +14,7 @@ public class Sheep : MonoBehaviour, ITouchable
     private Animator animator;
     private Grass target;
     private bool isEating = false;
+    public bool IsGrass { get; set; } = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +31,12 @@ public class Sheep : MonoBehaviour, ITouchable
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.instance.IsPlaying) return;
-        if(target == null || !target.IsActive)SetNewTarget();
+        if (!GameManager.instance.IsPlaying)
+        {
+            GetComponent<AudioSource>().mute = true;
+            return;
+        }
+        if (target == null || !target.IsActive)SetNewTarget();
         rigidbody.MovePosition(
             Vector3.MoveTowards(
                 transform.position,
@@ -66,6 +71,7 @@ public class Sheep : MonoBehaviour, ITouchable
             transform.position.x,
             0.31f,
             transform.position.z);
+        GameManager.instance.GrassPoint += 100;
         Destroy(gameObject);
     }
     public void OnEat()

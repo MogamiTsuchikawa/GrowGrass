@@ -12,6 +12,7 @@ public class KusakariOzisan : MonoBehaviour,ITouchable
     private Rigidbody rigidbody;
     private int touchCount = 0;
     private Animator animator;
+    public bool IsGrass { get; set; } = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,11 @@ public class KusakariOzisan : MonoBehaviour,ITouchable
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.instance.IsPlaying) return;
+        if (!GameManager.instance.IsPlaying) 
+        {
+            GetComponent<AudioSource>().mute = true;
+            return;
+        }
         blade.Rotate(0, 0, bladeRotateSpeed);
         rigidbody.MovePosition(transform.position + transform.forward * moveSpeed);
     }
@@ -48,6 +53,7 @@ public class KusakariOzisan : MonoBehaviour,ITouchable
             transform.position.x,
             0.3f,
             transform.position.z);
+        GameManager.instance.GrassPoint += 100;
         Destroy(gameObject);
     }
 }

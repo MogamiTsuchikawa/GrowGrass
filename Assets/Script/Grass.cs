@@ -14,6 +14,7 @@ public class Grass : MonoBehaviour,ITouchable
     private int _grassLevel;
     private bool _isActive = true;
     private bool flowerable = false;
+    public bool IsGrass { get; set; } = true;
     public DateTime UpdateAt { get; private set; }
     public bool IsActive
     {
@@ -53,8 +54,8 @@ public class Grass : MonoBehaviour,ITouchable
             {
                 GrassActiveIndex = 2;
                 GameManager.instance.GrassPoint++;
-                //var effect = Instantiate(levelUpEffect);
-                //daeffect.transform.position = transform.position;
+                var effect = Instantiate(levelUpEffect);
+                effect.transform.position = transform.position;
             }
             if(value == 9 && flowerable)
             {

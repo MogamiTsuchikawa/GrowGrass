@@ -42,7 +42,13 @@ public class EnemyManager : MonoBehaviour
         {
             yield return new WaitForSeconds(ozisanSpawnIntervalTime);
             if (!GameManager.instance.IsPlaying) continue;
-            prehubs[UnityEngine.Random.Range(0, prehubs.Count)].GenerateOzisan();
+            prehubs.OrderBy(p => 
+                Vector3.Distance(
+                    Camera.main.transform.position, 
+                    p.transform.position)
+                ).FirstOrDefault()
+                .GenerateOzisan();
+            //prehubs[UnityEngine.Random.Range(0, prehubs.Count)].GenerateOzisan();
         }
     }
     // Update is called once per frame
